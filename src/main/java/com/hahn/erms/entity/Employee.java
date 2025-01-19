@@ -19,6 +19,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -31,6 +33,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "EMPLOYEE")
 @EntityListeners(AuditingEntityListener.class)
+@Audited
 @Getter
 @Setter
 public class Employee {
@@ -44,7 +47,7 @@ public class Employee {
     )
     private Long id;
 
-    @NotBlank(message = "Employee ID is required")
+    @NotBlank(message = "EmployeeModel ID is required")
     @Column(name = "EMPLOYEE_ID", unique = true, nullable = false)
     private String employeeId;
 
@@ -80,6 +83,7 @@ public class Employee {
     private String address;
 
     // One-to-One relationship with User
+    @NotAudited
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
     private User user;

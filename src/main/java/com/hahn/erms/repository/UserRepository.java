@@ -1,4 +1,3 @@
-// repository/UserRepository.java
 package com.hahn.erms.repository;
 
 import com.hahn.erms.entity.User;
@@ -15,7 +14,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByUsername(String username);
 
-    boolean existsByUsername(String username);
 
     @Query("SELECT u FROM User u JOIN u.employee e WHERE e.department = :department")
     Set<User> findByDepartment(@Param("department") String department);
